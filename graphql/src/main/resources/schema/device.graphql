@@ -1,0 +1,5 @@
+type Device {
+id: Int!,
+deviceNumber: String
+expiryDate: String
+}

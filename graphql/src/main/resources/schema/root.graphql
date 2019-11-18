@@ -1,0 +1,12 @@
+schema{
+query:Query
+}
+type Query {
+accounts(count: Int):[Account]
+account(id: ID):Account
+accountByAccountNumber(accountNumber: String):Account
+
+deviceByDeviceId(id: Int):Device
+
+customerByCustomerId(id: Int):Customer
+}

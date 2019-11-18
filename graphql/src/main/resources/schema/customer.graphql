@@ -1,0 +1,6 @@
+type Customer {
+id: Int!,
+customerNumber: String,
+name: String
+}
+
