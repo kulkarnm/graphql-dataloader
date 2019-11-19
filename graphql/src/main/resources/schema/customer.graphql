@@ -1,5 +1,5 @@
 type Customer {
-id: Int!,
+id: ID!,
 customerNumber: String,
 name: String
 }
