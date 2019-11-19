@@ -18,7 +18,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public List<Customer> getCustomersByCustomerIds(Set<Long> customerIds) {
-        Query query = new Query(Criteria.where("customerIds").in(customerIds));
+        Query query = new Query(Criteria.where("id").in(customerIds));
         return mongoTemplate.find(query, Customer.class);
     }
 }

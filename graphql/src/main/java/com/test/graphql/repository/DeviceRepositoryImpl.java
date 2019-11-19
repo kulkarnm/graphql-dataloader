@@ -19,7 +19,7 @@ public class DeviceRepositoryImpl implements DeviceRepository {
 
     @Override
     public List<Device> getDevicesByDeviceIds(Set<Long> deviceIds) {
-        Query query = new Query(Criteria.where("deviceIds").in(deviceIds));
+        Query query = new Query(Criteria.where("id").in(deviceIds));
         return mongoTemplate.find(query, Device.class);
     }
 }

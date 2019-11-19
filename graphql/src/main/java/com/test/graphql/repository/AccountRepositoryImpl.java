@@ -19,7 +19,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public List<Account> getAccountsByAccountIds(Set<Long> accountIds) {
-        Query query = new Query(Criteria.where("accountIds").in(accountIds));
+        Query query = new Query(Criteria.where("id").in(accountIds));
         return mongoTemplate.find(query, Account.class);
     }
 }
