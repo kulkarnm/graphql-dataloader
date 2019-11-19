@@ -24,7 +24,9 @@ public class GraphQLController {
             @RequestBody Map<String,Object> body,
             HttpServletRequest request){
         try {
+            System.out.println("query: " + (String)body.get("query"));
             String queryHash = authCheck.isAuthGranted(request, (String)body.get("query"));
+            System.out.println(" queryHash: " + queryHash);
             return graphQLService.resolve(queryHash, (String)body.get("query"),(Map<String,Object>)body.get("variables"));
         } catch (ExecutionException e) {
             e.printStackTrace();

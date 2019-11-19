@@ -62,13 +62,14 @@ public class GraphQLConfiguration {
 
     @PostConstruct
     public void init() throws IOException {
+        System.out.println("^^^IN init method^^^");
         preparsedQueryCache = Caffeine.newBuilder().maximumSize(1000).build();
         RuntimeWiring runtimeWiring = buildWiring();
         TypeDefinitionRegistry  schema = loadSchema();
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(schema, runtimeWiring);
-        
+
         GraphQL.Builder builder = GraphQL.newGraphQL(graphQLSchema).preparsedDocumentProvider(this::getCachedQuery);
 
         List<Instrumentation> chainedList = new ArrayList<>();

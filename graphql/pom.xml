@@ -60,8 +60,6 @@
 			<version>1.13</version>
 		</dependency>
 
-
-
 		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphiql-spring-boot-starter</artifactId>
@@ -86,6 +84,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>
+                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5007
+                    </jvmArguments>
+                    <addResources>false</addResources>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
