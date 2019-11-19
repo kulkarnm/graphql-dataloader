@@ -1,5 +1,21 @@
 package com.test.graphql.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+import org.dataloader.BatchLoaderContextProvider;
+import org.dataloader.DataLoader;
+import org.dataloader.DataLoaderOptions;
+import org.dataloader.DataLoaderRegistry;
+import org.dataloader.MappedBatchLoaderWithContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
 import com.test.graphql.config.GraphQLContext;
 import com.test.graphql.controller.Message;
 import com.test.graphql.controller.Response;
@@ -9,35 +25,35 @@ import com.test.graphql.fetchers.DeviceDataFetcher;
 import com.test.graphql.loaders.AccountBatchDataLoader;
 import com.test.graphql.loaders.CustomerBatchDataLoader;
 import com.test.graphql.loaders.DeviceBatchDataLoader;
+
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.GraphQLError;
-import org.dataloader.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class GraphQLService {
 
     private GraphQL graphQL;
+    
+    @Autowired
     private CustomerDataFetcher customerDataFetcher;
+    
+    @Autowired
     private AccountDataFetcher accountDataFetcher;
+    
+    @Autowired
     private DeviceDataFetcher deviceDataFetcher;
 
-    @Autowired AccountBatchDataLoader accountBatchDataLoader;
+    @Autowired 
+    private AccountBatchDataLoader accountBatchDataLoader;
+    
     @Autowired
-    DeviceBatchDataLoader deviceBatchDataLoader;
+    private DeviceBatchDataLoader deviceBatchDataLoader;
+    
     @Autowired
-    CustomerBatchDataLoader customerBatchDataLoader;
+    private CustomerBatchDataLoader customerBatchDataLoader;
+    
     @Autowired
     public GraphQLService(GraphQL graphQL) {
         this.graphQL = graphQL;

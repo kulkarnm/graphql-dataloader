@@ -1,15 +1,15 @@
 package com.test.graphql.repository;
 
-import com.test.graphql.entity.Customer;
-import com.test.graphql.entity.Device;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Set;
+import com.test.graphql.entity.Device;
 @Repository
 public class DeviceRepositoryImpl implements DeviceRepository {
 

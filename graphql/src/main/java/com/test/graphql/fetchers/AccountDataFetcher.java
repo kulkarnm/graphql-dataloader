@@ -1,19 +1,20 @@
 package com.test.graphql.fetchers;
 
-import com.test.graphql.entity.Account;
-import com.test.graphql.entity.Customer;
-import graphql.schema.DataFetchingEnvironment;
+import java.util.concurrent.CompletableFuture;
+
 import org.dataloader.DataLoader;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.CompletableFuture;
+import com.test.graphql.entity.Account;
+
+import graphql.schema.DataFetchingEnvironment;
 
 @Component
 public class AccountDataFetcher {
     public CompletableFuture<Account> getAccount(DataFetchingEnvironment env) {
         Long accountId = Long.parseLong(env.getArgument("accountId"));
 
-        DataLoader<Long, Account> accountDataLoader = env.getDataLoader("accountDataLoader");
+        DataLoader<Long, Account> accountDataLoader = env.getDataLoader("AccountLoader");
 
         return accountDataLoader.load(accountId);
     }

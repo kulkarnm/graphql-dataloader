@@ -1,20 +1,19 @@
 package com.test.graphql.loaders;
 
-import com.test.graphql.entity.Account;
-import com.test.graphql.entity.Device;
-import com.test.graphql.repository.AccountRepository;
-import com.test.graphql.repository.DeviceRepository;
-import org.dataloader.BatchLoaderEnvironment;
-import org.dataloader.MappedBatchLoaderWithContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+
+import org.dataloader.BatchLoaderEnvironment;
+import org.dataloader.MappedBatchLoaderWithContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.test.graphql.entity.Device;
+import com.test.graphql.repository.DeviceRepository;
 
 @Component
 public class DeviceBatchDataLoader {

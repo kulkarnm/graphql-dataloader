@@ -1,11 +1,24 @@
 package com.test.graphql.config;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
-import com.test.graphql.fetchers.AccountDataFetcher;
-import com.test.graphql.fetchers.CustomerDataFetcher;
-import com.test.graphql.fetchers.DeviceDataFetcher;
+import com.test.graphql.fetchers.RootDataFetcher;
+
 import graphql.ExecutionInput;
 import graphql.GraphQL;
 import graphql.execution.instrumentation.ChainedInstrumentation;
@@ -13,37 +26,20 @@ import graphql.execution.instrumentation.Instrumentation;
 import graphql.execution.instrumentation.dataloader.DataLoaderDispatcherInstrumentation;
 import graphql.execution.instrumentation.dataloader.DataLoaderDispatcherInstrumentationOptions;
 import graphql.execution.preparsed.PreparsedDocumentEntry;
-import graphql.language.TypeDefinition;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import com.github.benmanes.caffeine.cache.Cache;
 
 @Configuration
 @EnableCaching
 public class GraphQLConfiguration {
 
     private GraphQL graphQL;
-
+    
     @Autowired
-    private CustomerDataFetcher customerDataFetcher;
-    @Autowired
-    private AccountDataFetcher accountDataFetcher;
-    @Autowired
-    private DeviceDataFetcher deviceDataFetcher;
+    private RootDataFetcher rootDataFetcher;
 
     private Cache<String, PreparsedDocumentEntry> preparsedQueryCache;
     
@@ -94,9 +90,9 @@ public class GraphQLConfiguration {
                 .newRuntimeWiring()
                 .type("Query",
                         typeWiring ->
-                                typeWiring.dataFetcher("Customer", environment -> customerDataFetcher.getCustomer(environment))
-                                        .dataFetcher("Account", environment -> accountDataFetcher.getAccount(environment))
-                                        .dataFetcher("Device", environment -> deviceDataFetcher.getDevice(environment))
+                                typeWiring.dataFetcher("customer", rootDataFetcher.getCustomerDataFetcher())
+                                        .dataFetcher("account", rootDataFetcher.getAccountDataFetcher())
+                                        .dataFetcher("device", rootDataFetcher.getDeviceDataFetcher())
                 ).build();
     }
 

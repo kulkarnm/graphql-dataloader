@@ -2,11 +2,9 @@ schema{
 query:Query
 }
 type Query {
-accounts(count: Int):[Account]
-account(id: ID):Account
-accountByAccountNumber(accountNumber: String):Account
+account(accountId: ID):Account
 
-deviceByDeviceId(id: Int):Device
+device(deviceId: Int):Device
 
-customerByCustomerId(id: Int):Customer
+customer(customerId: Int):Customer
 }
