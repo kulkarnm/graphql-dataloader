@@ -1,5 +1,6 @@
 package com.test.graphql.loaders;
 
+import com.test.graphql.config.GraphQLContext;
 import com.test.graphql.entity.Customer;
 import com.test.graphql.repository.CustomerRepository;
 import org.dataloader.BatchLoaderEnvironment;
@@ -26,7 +27,8 @@ public class CustomerBatchDataLoader {
             return CompletableFuture.supplyAsync(
                     () -> {
                         Map<Long, Customer> results = new HashMap<>();
-                        List<Customer> customerList = customerRepository.getCustomersByCustomerIds(keys);
+                        GraphQLContext context = env.getContext();
+                        List<Customer> customerList = customerRepository.getCustomersByCustomerIds(keys, context);
 
                         if (null == customerList || customerList.size() == 0) {
                             return results;

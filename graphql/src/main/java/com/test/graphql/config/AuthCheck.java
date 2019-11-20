@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 @Component
 public class AuthCheck {
-
-
     @EventListener(ApplicationEvent.class)
     public void onApplicationStart() {
         try {
@@ -22,7 +20,6 @@ public class AuthCheck {
     }
 
     private void loadAuthList() {
-
     }
 
     public String isAuthGranted(HttpServletRequest request, String query) {

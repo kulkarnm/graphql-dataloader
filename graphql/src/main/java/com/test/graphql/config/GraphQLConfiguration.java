@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import javax.annotation.PostConstruct;
 
+import graphql.execution.instrumentation.tracing.TracingInstrumentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -69,6 +70,8 @@ public class GraphQLConfiguration {
         GraphQL.Builder builder = GraphQL.newGraphQL(graphQLSchema).preparsedDocumentProvider(this::getCachedQuery);
 
         List<Instrumentation> chainedList = new ArrayList<>();
+
+        chainedList.add(new TracingInstrumentation(TracingInstrumentation.Options.newOptions().includeTrivialDataFetchers(false)));
 
         DataLoaderDispatcherInstrumentationOptions options = DataLoaderDispatcherInstrumentationOptions.newOptions().includeStatistics(true);
         DataLoaderDispatcherInstrumentation dispatcherInstrumentation = new DataLoaderDispatcherInstrumentation(options);

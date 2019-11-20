@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+import com.test.graphql.config.GraphQLContext;
 import org.dataloader.BatchLoaderEnvironment;
 import org.dataloader.MappedBatchLoaderWithContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class DeviceBatchDataLoader {
             return CompletableFuture.supplyAsync(
                     () -> {
                         Map<Long, Device> results = new HashMap<>();
-                        List<Device> deviceList = deviceRepository.getDevicesByDeviceIds(keys);
+                        GraphQLContext context = env.getContext();
+                        List<Device> deviceList = deviceRepository.getDevicesByDeviceIds(keys, context);
 
                         if (null == deviceList || deviceList.size() == 0) {
                             return results;

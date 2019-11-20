@@ -11,7 +11,6 @@
 	<artifactId>graphql</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>graphql</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -42,7 +41,7 @@
 		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-java</artifactId>
-			<version>13.0</version>
+			<version>2019-11-07T04-06-09-70d9412</version>
 		</dependency>
 		<dependency>
 			<groupId>com.graphql-java</groupId>
@@ -86,7 +85,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <jvmArguments>
-                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5007
+                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5001
                     </jvmArguments>
                     <addResources>false</addResources>
                 </configuration>

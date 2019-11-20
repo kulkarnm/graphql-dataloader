@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+import com.test.graphql.config.GraphQLContext;
 import org.dataloader.BatchLoaderEnvironment;
 import org.dataloader.MappedBatchLoaderWithContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class AccountBatchDataLoader {
             return CompletableFuture.supplyAsync(
                     () -> {
                         Map<Long, Account> results = new HashMap<>();
-                        List<Account> accountList = accountRepository.getAccountsByAccountIds(keys);
+                        GraphQLContext context = env.getContext();
+                        List<Account> accountList = accountRepository.getAccountsByAccountIds(keys, context);
 
                         if (null == accountList || accountList.size() == 0) {
                             return results;

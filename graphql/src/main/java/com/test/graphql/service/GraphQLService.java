@@ -71,7 +71,8 @@ public class GraphQLService {
                 .build();
 
         CompletableFuture<Response> promise = graphQL.executeAsync(executionInput).thenApply(result -> getResponse(result));
-
+        context = (GraphQLContext) executionInput.getContext();
+        System.out.println(context.getDbQueryTracingSummary().toString());
         return promise.get();
     }
 
