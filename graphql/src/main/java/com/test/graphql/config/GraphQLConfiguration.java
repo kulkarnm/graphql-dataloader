@@ -85,7 +85,13 @@ public class GraphQLConfiguration {
     private PreparsedDocumentEntry getCachedQuery(ExecutionInput executionInput,
                                                   Function<ExecutionInput, PreparsedDocumentEntry> computeFunction) {
         GraphQLContext context = (GraphQLContext) executionInput.getContext();
-        return preparsedQueryCache.get(context.getQueryHash(), (key) -> computeFunction.apply(executionInput));
+        PreparsedDocumentEntry cachedValue = preparsedQueryCache.getIfPresent(context.getQueryHash());
+        if(null != cachedValue) {
+        	System.out.println("Returning query from cache");
+        	return cachedValue;
+        } else {
+        	return preparsedQueryCache.get(context.getQueryHash(), (key) -> computeFunction.apply(executionInput));
+        }
     }
 
     private RuntimeWiring buildWiring() {
